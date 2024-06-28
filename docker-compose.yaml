@@ -1,0 +1,23 @@
+services:
+    llama-adapter:
+        container_name: llama-adapter
+        command: make jupyter
+        build:
+            context: .
+            dockerfile: docker/llama/Dockerfile
+        ports:
+            - 6006:80
+            - 8888:8888
+        volumes:
+            - .:/project
+        image: akkadeeemikk/llama
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          count: all
+                          capabilities: [ gpu ]
+
+
+
